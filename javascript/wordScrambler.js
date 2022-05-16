@@ -50,7 +50,6 @@ function shuffle(array) {
 
 word = wordValidation();
 let wordArray = word.split("");
-
 let scrambledWordArray = shuffle(wordArray);
 let scrambledWord = scrambledWordArray.join("");
 
