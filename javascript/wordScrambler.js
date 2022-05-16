@@ -1,13 +1,11 @@
-let wordToScramble;
 let flag = true;
-let word0, word = "";
-let scrambledWordArray = [];
+let word = "";
 
 function wordValidation() {
 
     flag = true;
     do {
-        word0 = prompt("Enter a word:");
+        let word0 = prompt("Enter a word:");
         word = word0.toLowerCase();
 
         if (word === "") {
@@ -31,29 +29,29 @@ function wordValidation() {
     return word;
 }
 
-wordToScramble = wordValidation();
-const charArray = wordToScramble.split('');
-charArrayLength = charArray.length;
-
-let numArray = [];
-
-function randomNumber() {
-    return Math.floor(Math.random() * charArrayLength);
-}
-
-numArray[0] = randomNumber();
-for (let i = 1; i < charArrayLength; i++) {
-    for (let j  = i; j > 0; j--) {
-        while ((numArray[i] === numArray[j]) && (j != i)) {
-            numArray[i] = randomNumber();
-        }
+function shuffle(array) {
+//Fisher-Yates shuffle
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
     }
-}
-alert(numArray);
+  
+    return array;
+  }
 
-for (let i = 0; i < charArrayLength; i++) {
-    scrambledWordArray[i] = charArray[numArray[i]];
-}
+word = wordValidation();
+let wordArray = word.split("");
 
+let scrambledWordArray = shuffle(wordArray);
 let scrambledWord = scrambledWordArray.join("");
+
 alert(scrambledWord);
