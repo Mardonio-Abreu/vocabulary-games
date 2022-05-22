@@ -1,3 +1,16 @@
+class Word {
+    constructor(word, clue) {
+        this.word = word;
+        this.clue = clue;
+        this.wordLength = function() {
+            return word.length;
+        }
+        this.charArray = function() {
+        return word.split("");
+    }
+}
+}
+
 function clueValidation() {
     let clue = prompt("Enter the clue");
     return clue;
@@ -33,26 +46,14 @@ function wordValidation() {
     return word;
 }
 
-class Word {
-    constructor(word, clue) {
-        this.word = word;
-        this.charArray = this.word.split("");
-        this.clue = clue;
+let wordNumber = parseInt(prompt("Enter the number of words for the crossword:"));
 
-    }
-
+let wordArray = [];
+for (let i = 0; i < wordNumber; i++){
+    let word = wordValidation();
+    let clue = clueValidation();
+    wordArray[i] = new Word(word, clue); 
 }
 
 
-let word0 = new Word();
-let word1 = new Word();
-let word2 = new Word();
-let word3 = new Word();
-let word4 = new Word();
-
-let wordArray = [{word0}, {word1}, {word2}, {word3}, {word4}];
-
-for (let i = 0; i < )
-
-
-alert(wordArray);
+alert(wordArray[0].word + wordArray[0].clue + wordArray[0].charArray() + wordArray[0].wordLength());
