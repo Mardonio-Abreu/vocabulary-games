@@ -46,6 +46,20 @@ function wordValidation() {
     return word;
 }
 
+function orderArray(wordArray){
+    for (let i = 0; i  < wordArray.length; i++){
+        for(let j = i + 1; j < wordArray.length; j++){
+            if (wordArray[j].wordLength() > wordArray[i].wordLength()){
+                let pivot = wordArray[i];
+                wordArray[i] = wordArray[j];
+                wordArray[j] = pivot;
+
+            }
+        }
+    }
+    return wordArray;
+}
+
 let wordNumber = parseInt(prompt("Enter the number of words for the crossword:"));
 
 let wordArray = [];
@@ -55,5 +69,5 @@ for (let i = 0; i < wordNumber; i++){
     wordArray[i] = new Word(word, clue); 
 }
 
-
-alert(wordArray[0].word + wordArray[0].clue + wordArray[0].charArray() + wordArray[0].wordLength());
+orderArray(wordArray);
+console.log(wordArray);
