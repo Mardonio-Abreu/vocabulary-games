@@ -1,9 +1,6 @@
-let flag = true;
-let word = "";
-
 function wordValidation() {
-
-    flag = true;
+    let word = "";
+    let flag = true;
     do {
         let word0 = prompt("Enter a word:");
         word = word0.toLowerCase();
@@ -30,25 +27,27 @@ function wordValidation() {
 }
 
 function shuffle(array) {
-//Fisher-Yates shuffle
-    let currentIndex = array.length,  randomIndex;
-  
+    //Fisher-Yates shuffle
+    let currentIndex = array.length,
+        randomIndex;
+
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-  
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
-  }
 
-word = wordValidation();
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]
+        ];
+    }
+
+    return array;
+}
+
+let word = wordValidation();
 let wordArray = word.split("");
 let scrambledWordArray = shuffle(wordArray);
 let scrambledWord = scrambledWordArray.join("");
