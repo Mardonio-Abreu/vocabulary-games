@@ -63,6 +63,7 @@ function orderArray(wordArray){
 let wordNumber = parseInt(prompt("Enter the number of words for the crossword:"));
 
 let wordArray = [];
+
 for (let i = 0; i < wordNumber; i++){
     let word = wordValidation();
     let clue = clueValidation();
