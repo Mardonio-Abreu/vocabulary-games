@@ -10,6 +10,16 @@ class Word {
         }
     }
 
+
+}
+
+function saveData(data){
+    let button = document.getElementById("bttn");
+
+    button.addEventListener('click', () => {
+        let number = document.getElementById(data);
+        sessionStorage.setItem(data, number.value);
+    });
 }
 
 function createNumberForm() {
@@ -22,7 +32,7 @@ function createNumberForm() {
     let wordNumberInput = document.createElement("input");
     wordNumberInput.setAttribute('type', "number");
     wordNumberInput.setAttribute('id', "wordNumber");
-    wordNumberInput.setAttribute('value', "6");
+    //wordNumberInput.setAttribute('value', "6");
     wordNumberInput.setAttribute('min', "1");
     wordNumberInput.setAttribute('max', "12");
 
@@ -40,17 +50,13 @@ function createNumberForm() {
 
     let button = document.getElementById("bttn");
 
-    function returnData() {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
-            let number = document.getElementById("wordNumber");
-            return number.value;
-        });
-    }
+    button.addEventListener('click', () => {
+        let number = document.getElementById("wordNumber");
+        sessionStorage.setItem('wordNumber', number.value);
+    });
+
 
 }
-
-
 
 function createFormCard() {
 
@@ -61,44 +67,83 @@ function createFormCard() {
 
     let wordInput = document.createElement("input");
     wordInput.setAttribute('type', "text");
-    wordInput.setAttribute('id', "word");
+    wordInput.setAttribute('class', "word");
 
     let clueLabel = document.createElement("label");
     clueLabel.innerText = "Enter the clue";
 
     let clueInput = document.createElement("input");
     clueInput.setAttribute('type', "text");
-    clueInput.setAttribute('id', "clue");
+    clueInput.setAttribute('class', "clue");
 
-    let imageLabel = document.createElement("label");
+    /* let imageLabel = document.createElement("label");
     imageLabel.innerText = "Enter the image path";
 
     let imageInput = document.createElement("input");
     imageInput.setAttribute('type', "file");
-    imageInput.setAttribute('id', "imagePath");
+    imageInput.setAttribute('id', "imagePath"); */
 
-    let submitButton = document.createElement("button");
-    submitButton.innerText = "submit";
-    submitButton.setAttribute('id', "bttn");
-    submitButton.setAttribute('type', "submit");
-
+    
+ 
     form.appendChild(wordLabel);
     form.appendChild(wordInput);
     form.appendChild(clueLabel);
     form.appendChild(clueInput);
-    form.appendChild(imageLabel);
-    form.appendChild(imageInput);
-    form.appendChild(submitButton);
+    /* form.appendChild(imageLabel);
+    form.appendChild(imageInput); */
+    
 
     document.body.appendChild(form);
 
 }
 
+function createSubmitData(){
+
+    let submitButton = document.createElement("button");
+    submitButton.innerText = "submit";
+    submitButton.setAttribute('id', "bttn1");
+    submitButton.setAttribute('type', "submit");
+
+    document.body.appendChild(submitButton);
 
 
-/* for (let i = 0; i < number.value; i++) {
-            createFormCard();
-        } */
 
-let number = createNumberForm();
-console.log(number);
+}
+
+createNumberForm();
+formNumber = sessionStorage.getItem('wordNumber');
+console.log(formNumber);
+
+for(let i = 0; i < formNumber; i++){
+    createFormCard();
+}
+
+createSubmitData();
+
+let button = document.getElementById("bttn1");
+
+    button.addEventListener('click', () => {
+        
+        let dataArray = [];
+        let wordArray = document.getElementsByClassName("word");
+        let clueArray = document.getElementsByClassName("clue");
+        
+        for (let i = 0; i < wordArray.length; i++){
+            let word = wordArray[i].value;
+            let clue = clueArray[i].value;
+            dataArray[i] = new Word(word, clue); 
+        }
+
+        let json = JSON.stringify(dataArray);
+        
+        localStorage.setItem('dataArray', json);
+        
+        document.body.innerHTML = '';
+        
+        let message = document.createElement("p");
+        message.innerText = "Success";
+        document.body.appendChild(message);
+    });
+
+
+

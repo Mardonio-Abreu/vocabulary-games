@@ -1,4 +1,4 @@
-function wordValidation() {
+/* function wordValidation() {
     let word = "";
     let flag = true;
     do {
@@ -24,6 +24,21 @@ function wordValidation() {
     } while (flag);
 
     return word;
+} */
+
+class Word {
+    constructor(word, clue) {
+        this.word = word;
+        this.clue = clue;
+        this.wordLength = function () {
+            return word.length;
+        }
+        this.charArray = function () {
+            return word.split("");
+        }
+    }
+
+
 }
 
 function shuffle(array) {
@@ -47,9 +62,25 @@ function shuffle(array) {
     return array;
 }
 
-let word = wordValidation();
-let wordArray = word.split("");
-let scrambledWordArray = shuffle(wordArray);
-let scrambledWord = scrambledWordArray.join("");
+let json = sessionStorage.getItem("dataArray");
 
-alert(scrambledWord);
+let dataArray = JSON.parse(json);
+
+
+
+dataArray.forEach(element => {
+    wordArray = element.charArray();
+    let scrambledWordArray = shuffle(wordArray);
+    let scrambledWord = scrambledWordArray.join("");
+    element.clue = scrambledWord;
+    
+});
+
+
+let paragraph = document.createElement("p");
+
+for (let i = 0; i < dataArray.length; i++){
+    paragraph.innerHTML += dataArray[i].clue;
+}
+  
+document.appendChild(paragraph);
