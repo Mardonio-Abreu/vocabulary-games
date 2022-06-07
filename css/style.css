@@ -17,4 +17,11 @@ a {
   color: darkcyan;
 }
 
+.card {
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
 /*# sourceMappingURL=style.css.map */

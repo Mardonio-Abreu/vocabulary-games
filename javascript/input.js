@@ -51,38 +51,51 @@ function createNumberForm() {
 
     document.body.appendChild(form);
 
+    let button = document.getElementById("bttn");
+
+    button.addEventListener('click', () => {
+        let number = document.getElementById("wordNumber");
+        sessionStorage.setItem('wordNumber', number.value);
+        form.removeChild(wordNumberLabel);
+        form.removeChild(wordNumberInput);
+        submitButton.setAttribute = "";
+        form.removeChild(submitButton);
+
+
+    });
+
 }
 
 function createFormCard() {
 
 
     let form = document.createElement("form");
-    form.setAttribute('class', "erase")
 
     let wordLabel = document.createElement("label");
-    wordLabel.setAttribute('class', "erase");
     wordLabel.innerText = "Enter the word";
 
     let wordInput = document.createElement("input");
     wordInput.setAttribute('type', "text");
-    wordInput.setAttribute('class', "word validation");
+    wordInput.setAttribute('id', "word");
 
     let clueLabel = document.createElement("label");
-    clueLabel.setAttribute('class', "erase1");
     clueLabel.innerText = "Enter the clue";
 
     let clueInput = document.createElement("input");
     clueInput.setAttribute('type', "text");
-    clueInput.setAttribute('class', "clue validation");
+    clueInput.setAttribute('id', "input");
 
     let imageLabel = document.createElement("label");
-    imageLabel.setAttribute('class', "erase2");
     imageLabel.innerText = "Enter the image path";
 
     let imageInput = document.createElement("input");
-    imageInput.setAttribute('class', "imageWord")
     imageInput.setAttribute('type', "file");
     imageInput.setAttribute('id', "imagePath");
+
+    let submitButton = document.createElement("button");
+    submitButton.innerText = "submit";
+    submitButton.setAttribute('id', "bttn1");
+    submitButton.setAttribute('type', "submit");
 
 
     form.appendChild(wordLabel);
@@ -91,77 +104,42 @@ function createFormCard() {
     form.appendChild(clueInput);
     form.appendChild(imageLabel);
     form.appendChild(imageInput);
-
+    form.appendChild(submitButton);
 
     document.body.appendChild(form);
 
-}
-
-function createSubmitDataButton() {
-
-    let submitButton = document.createElement("button");
-    submitButton.innerText = "submit";
-    submitButton.setAttribute('id', "bttn1");
-    submitButton.setAttribute('type', "submit");
-    submitButton.setAttribute('class', "submitButton");
-
-    document.body.appendChild(submitButton);
-
-
 
 }
+
 
 //Main part
+//Get number of words 
 
 createNumberForm();
-
-let button = document.getElementById("bttn");
-
-button.addEventListener('click', () => {
-    let number = document.getElementById("wordNumber");
-    sessionStorage.setItem('wordNumber', number.value);
-
-});
 
 
 let formNumber = sessionStorage.getItem('wordNumber');
 
+let dataArray = [];
 
 for (let i = 0; i < formNumber; i++) {
+
+
+
     createFormCard();
-}
 
-createSubmitDataButton();
+    button = document.getElementById("bttn1");
 
-button = document.getElementById("bttn1");
+    button.addEventListener('click', () => {
 
-button.addEventListener('click', () => {
+            let word = document.getElementById("word").value;
+            let clue = document.getElementById("clue").value;
+            let imageWord = document.getElementById("imageWord").value;
 
-    let dataArray = [];
-    let wordArray = document.getElementsByClassName("word");
-    let clueArray = document.getElementsByClassName("clue");
-    let imageArray = document.getElementsByClassName("imageWord");
+            dataArray[i] = new Word(word, clue, imageWord);
 
-    for (let i = 0; i < wordArray.length; i++) {
-        let word = wordArray[i].value;
-        let clue = clueArray[i].value;
-        let imageWord = imageArray[i].value;
-        dataArray[i] = new Word(word, clue, imageWord);
+        }
     }
 
-    let json = JSON.stringify(dataArray);
 
-    localStorage.setItem('dataArray', json);
-
-    eraser("word");
-    eraser("clue");
-    eraser("imageWord");
-    eraser("submitButton");
-    eraser("erase");
-    eraser("erase1");
-    eraser("erase2");
-
-});
-
-//validation
-
+  
