@@ -1,4 +1,4 @@
-class Word {
+class  Word {
     constructor(word, clue, imageWord) {
         this.word = word;
         this.clue = clue;
@@ -10,8 +10,6 @@ class Word {
             return word.split("");
         }
     }
-
-
 }
 
 function eraser(className) {
@@ -52,9 +50,10 @@ function createNumberForm() {
     document.body.appendChild(form);
 
     let button = document.getElementById("bttn");
+    let number = 0;
 
     button.addEventListener('click', () => {
-        let number = document.getElementById("wordNumber");
+        let number = document.getElementById("wordNumber").value;
         sessionStorage.setItem('wordNumber', number.value);
         form.removeChild(wordNumberLabel);
         form.removeChild(wordNumberInput);
@@ -63,83 +62,104 @@ function createNumberForm() {
 
 
     });
-
 }
 
 function createFormCard() {
 
-
-    let form = document.createElement("form");
+    let divForm = document.createElement("div");
+    divForm.setAttribute('class', "form");
 
     let wordLabel = document.createElement("label");
-    wordLabel.innerText = "Enter the word";
+    wordLabel.innerText = "Enter the word: ";
 
     let wordInput = document.createElement("input");
     wordInput.setAttribute('type', "text");
-    wordInput.setAttribute('id', "word");
+    wordInput.setAttribute('class', "word");
 
     let clueLabel = document.createElement("label");
-    clueLabel.innerText = "Enter the clue";
+    clueLabel.innerText = "Enter the clue: ";
 
     let clueInput = document.createElement("input");
     clueInput.setAttribute('type', "text");
-    clueInput.setAttribute('id', "input");
+    clueInput.setAttribute('class', "clue");
 
     let imageLabel = document.createElement("label");
     imageLabel.innerText = "Enter the image path";
 
     let imageInput = document.createElement("input");
     imageInput.setAttribute('type', "file");
-    imageInput.setAttribute('id', "imagePath");
+    imageInput.setAttribute('class', "imagePath");
 
-    let submitButton = document.createElement("button");
-    submitButton.innerText = "submit";
-    submitButton.setAttribute('id', "bttn1");
-    submitButton.setAttribute('type', "submit");
-
-
+    form.appendChild(divForm);
     form.appendChild(wordLabel);
     form.appendChild(wordInput);
     form.appendChild(clueLabel);
     form.appendChild(clueInput);
     form.appendChild(imageLabel);
     form.appendChild(imageInput);
-    form.appendChild(submitButton);
+    
 
     document.body.appendChild(form);
 
 
 }
 
+function createSubmitButton(){
+
+    let submitButton = document.createElement("button");
+    submitButton.innerText = "submit";
+    submitButton.setAttribute('id', "bttn");
+    submitButton.setAttribute('type', "submit");
+
+    form.appendChild(submitButton);
+}
 
 //Main part
 //Get number of words 
 
-createNumberForm();
 
 
-let formNumber = sessionStorage.getItem('wordNumber');
+//createNumberForm();
+
+//
+
+let form = document.createElement("form");
 
 let dataArray = [];
 
+let formNumber = 6;
+
 for (let i = 0; i < formNumber; i++) {
-
-
-
     createFormCard();
+}
 
-    button = document.getElementById("bttn1");
+createSubmitButton();
 
-    button.addEventListener('click', () => {
+button = document.getElementById("bttn");
 
-            let word = document.getElementById("word").value;
-            let clue = document.getElementById("clue").value;
-            let imageWord = document.getElementById("imageWord").value;
+    button.addEventListener('click', (e) => {
 
+        e.preventDefault();
+
+        let wordArray = document.getElementsByClassName("word");
+        let clueArray = document.getElementsByClassName("clue");
+        let imageWordArray = document.getElementsByClassName("imagePath");
+
+        for(let i = 0; i < formNumber; i++){
+
+            let word = wordArray[i].value;
+            let clue = clueArray[i].value;
+            let imageWord = imageWordArray[i].value;
             dataArray[i] = new Word(word, clue, imageWord);
-
         }
-    }
+        
+        for(let i = 0; i < formNumber; i++){
+
+            json = JSON.stringify(dataArray[i]);
+            
+            localStorage.setItem(`word${i}`, json);
+        }
+});
 
 
-  
+
