@@ -1,35 +1,8 @@
-/* function wordValidation() {
-    let word = "";
-    let flag = true;
-    do {
-        let word0 = prompt("Enter a word:");
-        word = word0.toLowerCase();
-
-        if (word === "") {
-            alert("Enter a non-empty word!");
-            flag = true;
-
-        } else if (!isNaN(word)) {
-            alert("Enter a word not number!");
-            flag = true;
-
-        } else if (!(/^[a-z]*$/.test(word))) {
-            alert("Enter a valid word!")
-            flag = true;
-
-        } else {
-            flag = false;
-        }
-
-    } while (flag);
-
-    return word;
-} */
-
-class Word {
-    constructor(word, clue) {
+class  Word {
+    constructor(word, clue, imageWord) {
         this.word = word;
         this.clue = clue;
+        this.imageWord = imageWord;
         this.wordLength = function () {
             return word.length;
         }
@@ -37,8 +10,6 @@ class Word {
             return word.split("");
         }
     }
-
-
 }
 
 function shuffle(array) {
@@ -62,14 +33,21 @@ function shuffle(array) {
     return array;
 }
 
-let json = sessionStorage.getItem("dataArray");
+let wordNumber = 6;
 
-let dataArray = JSON.parse(json);
+let dataArray = [];
 
+let objectArray = [];
 
+for (let i = 0; i < wordNumber; i++) {
+    let json = localStorage.getItem(`word${i}`);
+    dataArray[i] = JSON.parse(json);
+    objectArray[i] = new Word(dataArray[i].word, dataArray[i].clue, dataArray[i].imageWord);
 
-dataArray.forEach(element => {
-    wordArray = element.charArray();
+}
+
+objectArray.forEach(element => {
+    let wordArray = element.charArray();
     let scrambledWordArray = shuffle(wordArray);
     let scrambledWord = scrambledWordArray.join("");
     element.clue = scrambledWord;
@@ -77,10 +55,13 @@ dataArray.forEach(element => {
 });
 
 
-let paragraph = document.createElement("p");
+let paragraph = [];
 
-for (let i = 0; i < dataArray.length; i++){
-    paragraph.innerHTML += dataArray[i].clue;
+
+for (let i = 0; i < objectArray.length; i++){
+    paragraph[i] = document.createElement("p");
+    paragraph[i].innerHTML = objectArray[i].clue;
+    document.body.appendChild(paragraph[i]);
 }
   
-document.appendChild(paragraph);
+
