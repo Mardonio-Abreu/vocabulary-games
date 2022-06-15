@@ -114,14 +114,6 @@ function createSubmitButton(){
     form.appendChild(submitButton);
 }
 
-//Main part
-//Get number of words 
-
-
-
-//createNumberForm();
-
-//
 
 let form = document.createElement("form");
 
@@ -161,5 +153,10 @@ button = document.getElementById("bttn");
         }
 });
 
-
+Swal.fire({
+    title: 'Welcome to Taylored Word Games!',
+    text: 'Do you want to continue?',
+    icon: 'success',
+    confirmButtonText: 'Cool'
+  })
 
