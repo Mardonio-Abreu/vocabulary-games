@@ -12,6 +12,8 @@ class Word {
     }
 }
 
+const KEY = "6kO7UOEQj10L6i6tXL_qXtlhFNxJWgirce2rje3QOeU";
+
 let wordNumber = 6;
 
 let dataArray = [];
@@ -47,6 +49,19 @@ function createCard(image, word, clue){
 
 }
 
+//get images from Unsplash API
+
+//Fetch image
+
+function loadImg() {
+    const url = `https://api.unsplash.com/photos/random&client_id=${KEY}`;
+    fetch(url)
+        .then(response => {
+            return response.json();
+        })
+
+}
+
 for (let i = 0; i < wordNumber; i++) {
     let json = localStorage.getItem(`word${i}`);
     dataArray[i] = JSON.parse(json);
@@ -55,7 +70,7 @@ for (let i = 0; i < wordNumber; i++) {
 
 dataArray.forEach(element => {
 
-    createCard(element.imageWord, element.word, element.clue);
+    createCard(loadImg(), element.word, element.clue);
     
 });
 

@@ -22,4 +22,13 @@ a {
   flex-direction: row;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.image {
+  margin: auto 20px;
+}
+
 /*# sourceMappingURL=style.css.map */

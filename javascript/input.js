@@ -1,4 +1,4 @@
-class  Word {
+class Word {
     constructor(word, clue, imageWord) {
         this.word = word;
         this.clue = clue;
@@ -97,14 +97,14 @@ function createFormCard() {
     form.appendChild(clueInput);
     form.appendChild(imageLabel);
     form.appendChild(imageInput);
-    
+
 
     document.body.appendChild(form);
 
 
 }
 
-function createSubmitButton(){
+function createSubmitButton() {
 
     let submitButton = document.createElement("button");
     submitButton.innerText = "submit";
@@ -129,28 +129,28 @@ createSubmitButton();
 
 button = document.getElementById("bttn");
 
-    button.addEventListener('click', (e) => {
+button.addEventListener('click', (e) => {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        let wordArray = document.getElementsByClassName("word");
-        let clueArray = document.getElementsByClassName("clue");
-        let imageWordArray = document.getElementsByClassName("imagePath");
+    let wordArray = document.getElementsByClassName("word");
+    let clueArray = document.getElementsByClassName("clue");
+    let imageWordArray = document.getElementsByClassName("imagePath");
 
-        for(let i = 0; i < formNumber; i++){
+    for (let i = 0; i < formNumber; i++) {
 
-            let word = wordArray[i].value;
-            let clue = clueArray[i].value;
-            let imageWord = imageWordArray[i].value;
-            dataArray[i] = new Word(word, clue, imageWord);
-        }
-        
-        for(let i = 0; i < formNumber; i++){
+        let word = wordArray[i].value;
+        let clue = clueArray[i].value;
+        let imageWord = imageWordArray[i].value;
+        dataArray[i] = new Word(word, clue, imageWord);
+    }
 
-            json = JSON.stringify(dataArray[i]);
-            
-            localStorage.setItem(`word${i}`, json);
-        }
+    for (let i = 0; i < formNumber; i++) {
+
+        json = JSON.stringify(dataArray[i]);
+
+        localStorage.setItem(`word${i}`, json);
+    }
 });
 
 Swal.fire({
@@ -158,5 +158,5 @@ Swal.fire({
     text: 'Do you want to continue?',
     icon: 'success',
     confirmButtonText: 'Cool'
-  })
+})
 
