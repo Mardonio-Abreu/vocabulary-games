@@ -83,22 +83,12 @@ function createFormCard() {
     clueInput.setAttribute('type', "text");
     clueInput.setAttribute('class', "clue");
 
-    let imageLabel = document.createElement("label");
-    imageLabel.innerText = "Enter the image path";
-
-    let imageInput = document.createElement("input");
-    imageInput.setAttribute('type', "file");
-    imageInput.setAttribute('class', "imagePath");
-
     form.appendChild(divForm);
     form.appendChild(wordLabel);
     form.appendChild(wordInput);
     form.appendChild(clueLabel);
     form.appendChild(clueInput);
-    form.appendChild(imageLabel);
-    form.appendChild(imageInput);
-
-
+    
     document.body.appendChild(form);
 
 
@@ -135,13 +125,13 @@ button.addEventListener('click', (e) => {
 
     let wordArray = document.getElementsByClassName("word");
     let clueArray = document.getElementsByClassName("clue");
-    let imageWordArray = document.getElementsByClassName("imagePath");
+    let imageWordArray = "fake";
 
     for (let i = 0; i < formNumber; i++) {
 
         let word = wordArray[i].value;
         let clue = clueArray[i].value;
-        let imageWord = imageWordArray[i].value;
+        let imageWord = imageWordArray;
         dataArray[i] = new Word(word, clue, imageWord);
     }
 

@@ -12,18 +12,18 @@ class Word {
     }
 }
 
-const KEY = "6kO7UOEQj10L6i6tXL_qXtlhFNxJWgirce2rje3QOeU";
+const KEY = "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k";
 
 let wordNumber = 6;
 
 let dataArray = [];
 
-function createCard(image, word, clue){
-    
+function createCard(image, word, clue) {
+
     let divCard = document.createElement("div");
     divCard.setAttribute('class', "card");
     divCard.setAttribute('style', "width: 18rem;");
-    
+
     let imageCard = document.createElement("img");
     imageCard.setAttribute('class', "card-img-top");
     imageCard.setAttribute('src', image);
@@ -48,16 +48,21 @@ function createCard(image, word, clue){
     document.body.appendChild(divCard);
 
 }
-
 //get images from Unsplash API
 
 //Fetch image
 
-function loadImg() {
-    const url = `https://api.unsplash.com/photos/random&client_id=${KEY}`;
+function loadImg(query, word, clue ) {
+    const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=1&client_id=${KEY}`;
     fetch(url)
         .then(response => {
             return response.json();
+        })
+        .then(data => {
+
+           createCard(data.results[0].urls.regular, word, clue);
+
+
         })
 
 }
@@ -70,8 +75,6 @@ for (let i = 0; i < wordNumber; i++) {
 
 dataArray.forEach(element => {
 
-    createCard(loadImg(), element.word, element.clue);
+    loadImg(element.word, element.word, element.clue);
     
 });
-
-
