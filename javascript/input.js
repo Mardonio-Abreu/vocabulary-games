@@ -1,3 +1,5 @@
+const KEY = "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k";
+
 class Word {
     constructor(word, clue, imageWord) {
         this.word = word;
@@ -88,7 +90,7 @@ function createFormCard() {
     form.appendChild(wordInput);
     form.appendChild(clueLabel);
     form.appendChild(clueInput);
-    
+
     document.body.appendChild(form);
 
 
@@ -104,7 +106,20 @@ function createSubmitButton() {
     form.appendChild(submitButton);
 }
 
+let imageWord = [];
 
+function loadImg(query, i) {
+    const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=1&client_id=${KEY}`;
+    data = fetch(url)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+
+            imageWord[i] = data.results[0].urls.regular;
+
+        })
+}
 let form = document.createElement("form");
 
 let dataArray = [];
@@ -125,13 +140,13 @@ button.addEventListener('click', (e) => {
 
     let wordArray = document.getElementsByClassName("word");
     let clueArray = document.getElementsByClassName("clue");
-    let imageWordArray = "fake";
 
     for (let i = 0; i < formNumber; i++) {
 
         let word = wordArray[i].value;
         let clue = clueArray[i].value;
-        let imageWord = imageWordArray;
+        let imageWord = loadImg(word, i);
+        console.log(imageWord);
         dataArray[i] = new Word(word, clue, imageWord);
     }
 
@@ -145,8 +160,7 @@ button.addEventListener('click', (e) => {
 
 Swal.fire({
     title: 'Welcome to Taylored Word Games!',
-    text: 'Do you want to continue?',
+    text: 'Please, enter the words and the clues; they will be used in the activities',
     icon: 'success',
     confirmButtonText: 'Cool'
 })
-

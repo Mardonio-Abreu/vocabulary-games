@@ -18,7 +18,7 @@ let wordNumber = 6;
 
 let dataArray = [];
 
-function createCard(image, word, clue) {
+function createCard(word, clue, image) {
 
     let divCard = document.createElement("div");
     divCard.setAttribute('class', "card");
@@ -48,24 +48,7 @@ function createCard(image, word, clue) {
     document.body.appendChild(divCard);
 
 }
-//get images from Unsplash API
 
-//Fetch image
-
-function loadImg(query, word, clue ) {
-    const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=1&client_id=${KEY}`;
-    fetch(url)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-
-           createCard(data.results[0].urls.regular, word, clue);
-
-
-        })
-
-}
 
 for (let i = 0; i < wordNumber; i++) {
     let json = localStorage.getItem(`word${i}`);
@@ -75,6 +58,6 @@ for (let i = 0; i < wordNumber; i++) {
 
 dataArray.forEach(element => {
 
-    loadImg(element.word, element.word, element.clue);
-    
+    createCard(element.word, element.clue, element.imageWord);
+        
 });
