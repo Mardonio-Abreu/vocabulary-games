@@ -49,6 +49,18 @@ function createCard(word, clue, image) {
 
 }
 
+function loadImg(word, clue, query) {
+    const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=1&client_id=${KEY}`;
+    data = fetch(url)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+
+            createCard(word, clue, data.results[0].urls.regular);
+        })
+}
+
 
 for (let i = 0; i < wordNumber; i++) {
     let json = localStorage.getItem(`word${i}`);
@@ -58,6 +70,9 @@ for (let i = 0; i < wordNumber; i++) {
 
 dataArray.forEach(element => {
 
-    createCard(element.word, element.clue, element.imageWord);
-        
+    loadImg(element.word, element.clue, element.word);
+    
 });
+
+    
+        

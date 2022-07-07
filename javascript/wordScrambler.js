@@ -33,6 +33,16 @@ function shuffle(array) {
     return array;
 }
 
+function createSubmitButton() {
+
+    let submitButton = document.createElement("button");
+    submitButton.innerText = "submit";
+    submitButton.setAttribute('id', "bttn");
+    submitButton.setAttribute('type', "submit");
+
+    document.body.appendChild(submitButton);
+}
+
 let wordNumber = 6;
 
 let dataArray = [];
@@ -56,12 +66,21 @@ objectArray.forEach(element => {
 
 
 let paragraph = [];
+let guess = [];
 
 
 for (let i = 0; i < objectArray.length; i++){
+    
     paragraph[i] = document.createElement("p");
     paragraph[i].innerHTML = objectArray[i].clue;
+    guess[i] = document.createElement("input");
+    guess[i].setAttribute('type', "text");
+    guess[i].setAttribute('class',"guess");
+    guess[i].setAttribute('placeholder', "Guess the word!");
+    
     document.body.appendChild(paragraph[i]);
+    document.body.appendChild(guess[i]);
 }
   
+createSubmitButton();
 

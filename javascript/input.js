@@ -1,5 +1,3 @@
-const KEY = "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k";
-
 class Word {
     constructor(word, clue, imageWord) {
         this.word = word;
@@ -106,20 +104,9 @@ function createSubmitButton() {
     form.appendChild(submitButton);
 }
 
-let imageWord = [];
 
-function loadImg(query, i) {
-    const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=1&client_id=${KEY}`;
-    data = fetch(url)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
 
-            imageWord[i] = data.results[0].urls.regular;
 
-        })
-}
 let form = document.createElement("form");
 
 let dataArray = [];
@@ -145,8 +132,8 @@ button.addEventListener('click', (e) => {
 
         let word = wordArray[i].value;
         let clue = clueArray[i].value;
-        let imageWord = loadImg(word, i);
-        console.log(imageWord);
+        let imageWord = "fake";
+        
         dataArray[i] = new Word(word, clue, imageWord);
     }
 
