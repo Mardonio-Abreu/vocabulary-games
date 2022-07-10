@@ -1,4 +1,4 @@
-class  Word {
+class Word {
     constructor(word, clue, imageWord) {
         this.word = word;
         this.clue = clue;
@@ -61,7 +61,7 @@ objectArray.forEach(element => {
     let scrambledWordArray = shuffle(wordArray);
     let scrambledWord = scrambledWordArray.join("");
     element.clue = scrambledWord;
-    
+
 });
 
 
@@ -69,18 +69,44 @@ let paragraph = [];
 let guess = [];
 
 
-for (let i = 0; i < objectArray.length; i++){
-    
+for (let i = 0; i < objectArray.length; i++) {
+
     paragraph[i] = document.createElement("p");
     paragraph[i].innerHTML = objectArray[i].clue;
     guess[i] = document.createElement("input");
     guess[i].setAttribute('type', "text");
-    guess[i].setAttribute('class',"guess");
+    guess[i].setAttribute('class', "guess");
     guess[i].setAttribute('placeholder', "Guess the word!");
-    
+
     document.body.appendChild(paragraph[i]);
     document.body.appendChild(guess[i]);
 }
-  
+
 createSubmitButton();
 
+let counter = 0;
+
+let answers = [];
+
+let button = document.getElementById("bttn");
+
+button.addEventListener('click', (e) => {
+
+    e.preventDefault();
+
+    answers = document.getElementsByClassName("guess");
+
+    for (let i = 0; i < objectArray.length; i++) {
+        console.log(objectArray[i].word);
+        console.log(answers[i]);
+        if (objectArray[i].word == answers[i].value) {
+            
+            counter++;
+        }
+    }
+
+        let result = document.createElement("p");
+        result.innerHTML = `Correct answers: ${counter}`;
+
+        document.body.appendChild(result);
+})
